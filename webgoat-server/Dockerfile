@@ -8,7 +8,7 @@ RUN \
 
 USER webgoat
 RUN cd /home/webgoat/; mkdir -p .webgoat-${webgoat_version}
-COPY target/webgoat-server-${webgoat_version}.jar /home/webgoat/webgoat.jar
+COPY target/webgoat-server-v8.0.0.M20.jar /home/webgoat/webgoat.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/home/webgoat/webgoat.jar", "--server.address=0.0.0.0"]
 EXPOSE 8080
