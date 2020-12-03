@@ -1,14 +1,6 @@
-FROM openjdk:8-jre-slim
-
-ARG webgoat_version=v8.0.0.SNAPSHOT
-
-RUN \
-  apt-get update && apt-get install && \
-  useradd --home-dir /home/webgoat --create-home -U webgoat
-
-USER webgoat
-RUN cd /home/webgoat/; mkdir -p .webgoat-${webgoat_version}
-COPY target/webgoat-server-v8.0.0.M20.jar /home/webgoat/webgoat.jar
-
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/home/webgoat/webgoat.jar", "--server.address=0.0.0.0"]
-EXPOSE 8090
+FROM openjdk:8-jre
+VOLUME /tmp
+RUN cd /root; mkdir -p .webgoat
+ADD webgoat-container-7.1-exec.jar webgoat.jar
+RUN sh -c 'touch /webgoat.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/webgoat.jar"]
